@@ -1,13 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './slices/counterSlice'
-import userReducer from "../store/slices/userSlice"
-export const store = configureStore({
-  reducer: {
-    counter:counterReducer,
-    user:userReducer,
-  },
-})
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import counter from "./slices/counterSlice";
+import user from "../store/slices/userSlice";
+import { createWrapper } from "next-redux-wrapper";
 
-export type RootState = ReturnType<typeof store.getState>
+const combineReducer = combineReducers({
+  counter,
+  user,
+});
 
-export type AppDispatch = typeof store.dispatch
+const makeStore: any = ()=> configureStore({
+  reducer: combineReducer,
+});
+
+export const wrapper = createWrapper(makeStore);
+export type RootState = ReturnType<typeof makeStore.getState>;
+export type AppDispatch = typeof makeStore.dispatch;
