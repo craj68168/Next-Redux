@@ -10,6 +10,17 @@ const combineReducer = combineReducers({
 
 const masterReducer = (state: any, action: any) => {
   if (action.type === HYDRATE) {
+    const nextState = {
+      ...state,
+      counter: {
+        value: state?.counter.value + action.payload.counter.value,
+      },
+      user: {
+        users: [...action.payload.user.users, ...state?.user?.users],
+      },
+    };
+
+    return nextState;
   } else {
     return combineReducer(state, action);
   }
@@ -20,6 +31,6 @@ const makeStore: any = () =>
     reducer: masterReducer,
   });
 
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(makeStore, { debug: true });
 export type RootState = ReturnType<typeof makeStore.getState>;
 export type AppDispatch = typeof makeStore.dispatch;

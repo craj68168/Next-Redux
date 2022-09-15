@@ -13,11 +13,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state: any, action) => {
-      state.users = [...state.users, action.payload];
+      state.users = [...state.users,action.payload];
     },
   },
 });
 
 export const { addUser } = userSlice.actions;
-export const userValue = (state: RootState) => state.user.users;
+export const userValue = (state: RootState) => state?.user?.users;
 export default userSlice.reducer;

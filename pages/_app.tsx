@@ -1,9 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import {  wrapper } from '../store'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { wrapper } from "../store";
+import { useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (<Component {...pageProps} /> )
+  const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
+  return <Component {...pageProps} />;
 }
 
-export default wrapper.withRedux(MyApp)
+export default wrapper.withRedux(MyApp);
