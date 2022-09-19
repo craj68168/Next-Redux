@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "..";
 interface userState {
   users: String[];
 }
@@ -19,5 +18,5 @@ export const userSlice = createSlice({
 });
 
 export const { addUser } = userSlice.actions;
-export const userValue = (state: RootState) => state?.user?.users;
+export const userValue = (state: any) => state?.users;
 export default userSlice.reducer;

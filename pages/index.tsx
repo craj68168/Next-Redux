@@ -1,20 +1,15 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { useDispatch, useSelector } from "react-redux";
 import {
   increment,
   decrement,
-  selectValue,
 } from "../store/slices/counterSlice";
 import styles from "../styles/Home.module.css";
-import { RootState, wrapper } from "../store";
 import { useRef } from "react";
-import { addUser, userValue } from "../store/slices/userSlice";
-const Home: NextPage = ({ data }: any) => {
-  console.log("name", data);
-
+import { addUser,userValue } from "../store/slices/userSlice";
+const Home: NextPage = () => {
   const dispatch = useDispatch();
-  // const count = useSelector((state:RootState)=>console.log("state",state));
-  const count = useSelector(selectValue);
+  const count = useSelector((state:any)=>state.count);
   const users = useSelector(userValue);
   const userRef = useRef<any>(null);
   const handleClick = () => {
@@ -35,15 +30,5 @@ const Home: NextPage = ({ data }: any) => {
     </div>
   );
 };
-
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store): any =>
-    async () => {
-      const res = await fetch(`http://localhost:3000/api/user`);
-      const { data } = await res.json();
-      store.dispatch(addUser(data));
-      store.dispatch(increment())
-    }
-);
 
 export default Home;

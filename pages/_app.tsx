@@ -1,8 +1,9 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { wrapper, persistor } from "../store";
 import { useEffect, useState } from "react";
-import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from '../store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from "react-redux";
 function MyApp({ Component, pageProps }: AppProps) {
   const [showChild, setShowChild] = useState(false);
 
@@ -13,13 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   if (!showChild) {
     return null;
   }
-  return (
-    <>
-      <PersistGate loading={null} persistor={persistor}>
-        <Component {...pageProps} />
-      </PersistGate>
-    </>
-  );
+  return <> 
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}><Component {...pageProps} /> </PersistGate>
+    </Provider>
+  </> ;
 }
-
-export default wrapper.withRedux(MyApp);
+export default MyApp
