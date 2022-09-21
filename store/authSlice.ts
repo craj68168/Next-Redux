@@ -24,22 +24,22 @@ export const authSlice = createSlice({
     },
 
     // Special reducer for hydrating the state. Special case for next-redux-wrapper
-    extraReducers: {
-        [HYDRATE]: (state:any, action:any) => {
+    extraReducers(builder:any) {
+        // [HYDRATE]: (state:any, action:any) => {
+        //     return {
+        //       ...state,
+        //       ...action?.payload?.auth,
+        //     };
+        //   },
+        // },
+        builder.addCase(HYDRATE, (state:any, action:any) => {
+            console.log('HYDRATE', state, action.payload);
             return {
-              ...state,
-              ...action?.payload?.auth,
-            };
-          },
-        },
-    //     builder.addCase(HYDRATE, (state:any, action:any) => {
-    //         console.log('HYDRATE', state, action.payload);
-    //         return {
-    //             ...state,
-    //             ...action.payload.auth,
-    //           };
-    //     });
-    // },
+                ...state,
+                ...action.payload.auth,
+              };
+        });
+    },
 
   },
 });
