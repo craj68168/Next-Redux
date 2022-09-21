@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
 
+// Type for our state
 export interface AuthState {
   authState: boolean;
 }
@@ -11,27 +13,39 @@ const initialState: AuthState = {
 };
 
 // Actual Slice
-
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+
     // Action to set the authentication status
     setAuthState(state, action) {
       state.authState = action.payload;
     },
+
     // Special reducer for hydrating the state. Special case for next-redux-wrapper
     extraReducers: {
-      [HYDRATE]: (state:any, action:any) => {
-        return {
-          ...state,
-          ...action.payload.auth,
-        };
-      },
-    },
-    
+        [HYDRATE]: (state:any, action:any) => {
+            return {
+              ...state,
+              ...action?.payload?.auth,
+            };
+          },
+        },
+    //     builder.addCase(HYDRATE, (state:any, action:any) => {
+    //         console.log('HYDRATE', state, action.payload);
+    //         return {
+    //             ...state,
+    //             ...action.payload.auth,
+    //           };
+    //     });
+    // },
+
   },
 });
 
 export const { setAuthState } = authSlice.actions;
-export const selectAuthState = (state:any)=>state.auth.authState
+
+export const selectAuthState = (state: AppState) => state.auth.authState;
+
+export default authSlice.reducer;
