@@ -1,13 +1,17 @@
 import type { NextPage } from "next";
-import { useDispatch, useSelector } from "react-redux";
-import { wrapper } from "../store/store";
 import Link from "next/link";
+import { setProfileData } from "../store/slices/profile";
+import { wrapper } from "../store/store";
 
-const Home: NextPage = ({ data }: any) => {
-  const dispatch = useDispatch();
+const Home: NextPage = () => {
   return (
     <>
-      <div></div>
+      <div>
+        <h1>Welcome to Home Page</h1>
+        <Link href="/profile">
+          <a>Go to Profile Page</a>
+        </Link>
+      </div>
     </>
   );
 };
@@ -28,10 +32,11 @@ export default Home;
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
+    const data = store.dispatch(setProfileData("My Server Data"));
     return {
-      props:{
-        
-      }
-    }
+      props: {
+        data: data,
+      },
+    };
   }
 );

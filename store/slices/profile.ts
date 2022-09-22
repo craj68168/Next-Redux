@@ -14,20 +14,22 @@ export const ProfileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    setProfileData:(state, action) =>{
+    setProfileData: (state, action) => {
       state.name = action.payload;
-    }
+    },
   },
-    extraReducers: {
-      [HYDRATE]: (state, action) => {
-         state.name = action.payload.profile.name
-        },
-      },
-   
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      if (!action.payload.profile.name) {
+        return state;
+      }
+      state.name = action.payload.profile.name;
+    },
+  },
 });
 
 export const { setProfileData } = ProfileSlice.actions;
 
-// export const profileData = (state: AppState) => state?.profile.name;
+export const selectProfile = (state: AppState) => state?.profile.name;
 
 export default ProfileSlice.reducer;
