@@ -5,7 +5,7 @@ import { wrapper } from "../store/store";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-        <Component {...pageProps} />
+      <Component {...pageProps} />
     </>
   );
 }
