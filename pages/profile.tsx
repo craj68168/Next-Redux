@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../store/store";
 import Link from "next/link";
-import { setProfileData, selectProfile } from "../store/slices/profile";
+import { selectProfile } from "../store/slices/profile";
 
 const profile = () => {
   const data = useSelector(selectProfile);

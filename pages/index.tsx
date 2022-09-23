@@ -18,25 +18,12 @@ const Home: NextPage = () => {
 
 export default Home;
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) =>
-//     async ({ params }) => {
-//       console.log("State on server", store.getState());
-//       return {
-//         props: {
-//           authState: false,
-//         },
-//       };
-//     }
-// );
-
 export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (ctx) => {
-    const data = store.dispatch(setProfileData("My Server Data"));
-    return {
-      props: {
-        data: data,
-      },
-    };
-  }
+  (store) =>
+    async ({ params }) => {
+      store.dispatch(setProfileData("My Server Data"));
+      return {
+        props: {},
+      };
+    }
 );
