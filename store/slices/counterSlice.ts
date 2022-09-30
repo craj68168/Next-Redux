@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "..";
+import {  } from "../index";
 
 interface CounterState {
   value: number;
@@ -23,6 +23,6 @@ export const counterSlice = createSlice({
 });
 
 export const { increment, decrement } = counterSlice.actions;
-export const selectValue = (state: RootState) => state?.counter?.value;
+export const selectValue = (state: any) => state?.counter?.value;
 
 export default counterSlice.reducer;
