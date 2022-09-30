@@ -8,7 +8,7 @@ const makeStore = () =>
   configureStore({
     reducer: {
       profile: ProfileReducer,
-      middleware: (getDefaultMiddleware:any) => getDefaultMiddleware().concat(logger),
+      // middleware: (getDefaultMiddleware:any) => getDefaultMiddleware().concat(logger),
     },
     devTools: true,
   });
